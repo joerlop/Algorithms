@@ -14,19 +14,25 @@ def count(n, counter):
 def eating_cookies(n, cache=None):
   counter = 0
   # good solution - should increment possibilities by 1
-  cookies_to_eat = [1, 2, 3]
-  for num in cookies_to_eat:
-    if n == 0:
-      return 1
-    elif n - num < 0:
-      break
-    else:
-      counter += eating_cookies(n - num)
+  if cache[n] != 0:
+    return cache[n]
   
+  else:
+    cookies_to_eat = [1, 2, 3]
+    for num in cookies_to_eat:
+      if n == 0:
+        return 1
+      elif n - num < 0:
+        break
+      else:
+        counter += eating_cookies(n - num, cache)
+  
+  cache[n] = counter
   return counter
 
-  
-print(eating_cookies(10))
+cache = [0] * 101
+
+print(eating_cookies(50, cache))
 
 
 if __name__ == "__main__":
